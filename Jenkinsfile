@@ -14,9 +14,7 @@ pipeline {
         }
         
         stage('ID') {
-            when {
-                branch "master"
-            }
+           
             steps {
                 sh 'echo $USER'
             }
