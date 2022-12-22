@@ -53,7 +53,7 @@ pipeline {
                 CANARY_REPLICAS = 1
             }
             steps {
-                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+' ; export BUILD_NUMBER='+${env.BUILD_NUMBER}+'; envsubst < train-schedule-kube-canary.yml | kubectl apply -v=8 -f -'
+                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+' ; export BUILD_NUMBER='+"${env.BUILD_NUMBER}"+'; envsubst < train-schedule-kube-canary.yml | kubectl apply -v=8 -f -'
             }
         }
         stage('DeployToProduction') {
@@ -66,8 +66,8 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+'; export BUILD_NUMBER='+${env.BUILD_NUMBER}+' ; envsubst < train-schedule-kube-canary.yml | kubectl apply -f -'
-                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+'; export BUILD_NUMBER='+${env.BUILD_NUMBER}+' ; envsubst < train-schedule-kube.yml | kubectl apply -f -'
+                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+'; export BUILD_NUMBER='+"${env.BUILD_NUMBER}"+' ; envsubst < train-schedule-kube-canary.yml | kubectl apply -f -'
+                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+'; export BUILD_NUMBER='+"${env.BUILD_NUMBER}"+' ; envsubst < train-schedule-kube.yml | kubectl apply -f -'
             }
         }
     }
