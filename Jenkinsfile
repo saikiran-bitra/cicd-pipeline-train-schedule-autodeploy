@@ -44,8 +44,8 @@ pipeline {
         stage('ID') {
            
             steps {
-                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+' ; export BUILD_NUMBER='+"${env.BUILD_NUMBER}"
-                sh 'echo $USER $CANARY_REPLICAS $DOCKER_IMAGE_NAME $BUILD_NUMBER'
+                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+' ; export BUILD_NUMBER='+"${env.BUILD_NUMBER}"+' ; echo ${USER} ${CANARY_REPLICAS} ${DOCKER_IMAGE_NAME} ${BUILD_NUMBER}'  
+                sh 'echo ${USER} $CANARY_REPLICAS $DOCKER_IMAGE_NAME $BUILD_NUMBER'
             }
         }
         
