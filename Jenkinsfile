@@ -41,7 +41,7 @@ pipeline {
             }
         }
         
-        stage('ID') {
+        stage('echo envs') {
             
             environment { 
                 CANARY_REPLICAS = 1
@@ -50,6 +50,18 @@ pipeline {
             steps {
                 sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+' ; export BUILD_NUMBER='+"${env.BUILD_NUMBER}"+' ; echo ${USER} ${CANARY_REPLICAS} ${DOCKER_IMAGE_NAME} ${BUILD_NUMBER}'  
                 sh 'echo ${USER} $CANARY_REPLICAS $DOCKER_IMAGE_NAME $BUILD_NUMBER'
+            }
+        }
+        
+        stage('CanaryDeploy') {
+            when {
+                branch "master"
+            }
+            environment { 
+                CANARY_REPLICAS = 1
+            }
+            steps {
+                sh 'export CANARY_REPLICAS=1 ; export DOCKER_IMAGE_NAME="saikiran989/train-schedule" ; export BUILD_NUMBER=23; envsubst < train-schedule-kube-canary.yml | kubectl apply -v=8 -f -'
             }
         }
         
