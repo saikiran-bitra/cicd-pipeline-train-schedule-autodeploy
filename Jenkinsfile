@@ -53,17 +53,7 @@ pipeline {
             }
         }
         
-        stage('CanaryDeploy') {
-            when {
-                branch "master"
-            }
-            environment { 
-                CANARY_REPLICAS = 1
-            }
-            steps {
-                sh 'export CANARY_REPLICAS=1 ; export DOCKER_IMAGE_NAME="saikiran989/train-schedule" ; export BUILD_NUMBER=23; envsubst < train-schedule-kube-canary.yml | kubectl apply -v=8 -f -'
-            }
-        }
+        
         stage('DeployToProduction') {
             when {
                 branch "master"
