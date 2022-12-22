@@ -16,7 +16,7 @@ pipeline {
         stage('ID') {
            
             steps {
-                sh 'echo $USER'
+                sh 'echo ${USER}'
             }
         }
         stage('Build Docker Image') {
