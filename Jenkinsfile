@@ -42,6 +42,10 @@ pipeline {
         }
         
         stage('ID') {
+            
+            environment { 
+                CANARY_REPLICAS = 1
+            }
            
             steps {
                 sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; export DOCKER_IMAGE_NAME='+DOCKER_IMAGE_NAME+' ; export BUILD_NUMBER='+"${env.BUILD_NUMBER}"+' ; echo ${USER} ${CANARY_REPLICAS} ${DOCKER_IMAGE_NAME} ${BUILD_NUMBER}'  
