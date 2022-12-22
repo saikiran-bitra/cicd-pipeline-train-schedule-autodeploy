@@ -53,7 +53,7 @@ pipeline {
                 CANARY_REPLICAS = 1
             }
             steps {
-                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; envsubst < train-schedule-kube-canary.yml | kubectl apply -f -'
+                sh 'export CANARY_REPLICAS='+CANARY_REPLICAS+' ; envsubst < train-schedule-kube-canary.yml | kubectl apply -v=8 -f -'
             }
         }
         stage('DeployToProduction') {
