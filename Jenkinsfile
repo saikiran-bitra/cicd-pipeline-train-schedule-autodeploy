@@ -12,6 +12,15 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
+        
+        stage('ID') {
+            when {
+                branch "master"
+            }
+            steps {
+                sh 'echo $USER'
+            }
+        }
         stage('Build Docker Image') {
             when {
                 branch "master"
